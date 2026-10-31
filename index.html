@@ -124,6 +124,7 @@
     #presentacion h1 { font-size: 2.6rem; margin-bottom: 18px; max-width: 720px; }
     #presentacion p { font-size: 1.15rem; color: var(--gris); max-width: 640px; }
     #presentacion .boton { margin-top: 28px; }
+    #presentacion .firma { font-size: 0.95rem; margin-top: 14px; }
 
     /* ===================================================
        2. PARA QUIÉN SÍ / PARA QUIÉN NO
@@ -142,6 +143,10 @@
     }
     .tarjeta.si { border-top: 5px solid var(--acento); }
     .tarjeta.no { border-top: 5px solid #c2554a; }
+
+    /* Viñetas dentro de las tarjetas */
+    .lista { margin-top: 10px; padding-left: 20px; }
+    .lista li + li { margin-top: 8px; }
 
     /* ===================================================
        3. DEMO (caja de antes y después)
@@ -238,8 +243,10 @@
       body { font-size: 16px; }
       section { padding: 56px 0; }
       nav { display: none; }                       /* oculta el menú */
-      #presentacion { padding: 64px 0 56px; }
-      #presentacion h1 { font-size: 2rem; }
+      #presentacion { padding: 36px 0 48px; }
+      #presentacion h1 { font-size: 1.6rem; }
+      #presentacion p { font-size: 1.05rem; }
+      #presentacion .boton { margin-top: 22px; }
       h2 { font-size: 1.5rem; }
       .dos-columnas { grid-template-columns: 1fr; } /* una columna */
       .pasos { grid-template-columns: 1fr; }        /* pasos uno abajo del otro */
@@ -276,11 +283,17 @@
          =================================================== -->
     <section id="presentacion">
       <div class="contenedor">
-        <span class="etiqueta">Asistentes con IA para negocios de servicios</span>
-        <h1>Menos tiempo contestando mensajes. Más tiempo atendiendo.</h1>
-        <p>Soy Lorenzo y armo asistentes con IA para negocios chicos de servicios en Países Bajos.</p>
-        <p>Tu asistente responde las preguntas de siempre y te deja ordenados los pedidos de turno o de presupuesto.</p>
+        <!-- Para quién: se lee primero, en una línea -->
+        <span class="etiqueta">Para consultorios y profesionales de servicios en Países Bajos</span>
+
+        <!-- La oferta en una frase: qué entrego y qué problema saca -->
+        <h1>Un asistente en tu web que responde las preguntas de siempre y te deja ordenados los pedidos de turno o de presupuesto.</h1>
+
+        <!-- Cómo funciona y en cuánto tiempo, en una frase corta -->
+        <p>Responde solo con la información que vos aprobás, en neerlandés e inglés. Los turnos los confirmás vos. Lo tenés andando en 2 semanas.</p>
+
         <a href="#reunion" class="boton">Agendá una reunión de 20 minutos</a>
+        <p class="firma">Soy Lorenzo, y lo armo y lo ajusto con vos.</p>
       </div>
     </section>
 
@@ -293,13 +306,23 @@
         <span class="etiqueta">Para quién es</span>
         <h2>¿Es para un negocio como el tuyo?</h2>
         <div class="dos-columnas">
+          <!-- 3 viñetas: a quién SÍ le sirve -->
           <div class="tarjeta si">
-            <h3>✓ Sí, si sos…</h3>
-            <p>Consultorio, fisioterapeuta, veterinaria, centro de estética o profesional a domicilio que recibe las mismas consultas todos los días.</p>
+            <h3>✓ Es para vos si…</h3>
+            <ul class="lista">
+              <li>Tenés un consultorio con turnos: fisioterapia, odontología, veterinaria o estética.</li>
+              <li>Trabajás a domicilio y te piden presupuestos: electricidad, plomería o pintura.</li>
+              <li>Contestás las mismas preguntas todos los días, por la web o por mail.</li>
+            </ul>
           </div>
+          <!-- 3 viñetas: a quién NO le sirve (baja las objeciones raras) -->
           <div class="tarjeta no">
-            <h3>✗ No, si buscás…</h3>
-            <p>Conectarte a sistemas complejos de una cadena grande, o que la IA confirme turnos o dé diagnósticos sola.</p>
+            <h3>✗ No es para vos si…</h3>
+            <ul class="lista">
+              <li>Sos una cadena grande y necesitás conectar sistemas complejos.</li>
+              <li>Querés que la IA confirme turnos sola o dé diagnósticos.</li>
+              <li>No tenés a nadie que revise los pedidos que llegan.</li>
+            </ul>
           </div>
         </div>
       </div>
