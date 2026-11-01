@@ -410,6 +410,7 @@
       color: var(--azul);
     }
     details p { margin-top: 10px; color: var(--gris); }
+    details p a { color: var(--acento-oscuro); font-weight: 600; }
 
     /* ===================================================
        7. CTA FINAL (botón de reunión)
@@ -716,33 +717,47 @@
         <span class="etiqueta" data-i18n="faq_tag">FAQ</span>
         <h2 data-i18n="faq_h2">What everyone asks before getting started.</h2>
 
+        <!-- 8 preguntas en la voz del cliente. Precio: nunca el número, siempre demo + reunión 1:1. -->
+
+        <!-- 1. Precio -->
         <details>
-          <summary data-i18n="q1">What if the AI makes things up?</summary>
-          <p data-i18n="a1">It only uses information you approve. If it doesn't know something, it hands over to a person.</p>
+          <summary data-i18n="q1">How much does it cost?</summary>
+          <p data-i18n="a1">We go over it in 20 minutes, after you've seen the <a href="#demo">demo</a>. That way I quote your case, not a generic package. You get a fixed price, in writing.</p>
         </details>
+        <!-- 2. "Pasame el número sin reunión" -->
         <details>
-          <summary data-i18n="q2">Does it work on WhatsApp?</summary>
-          <p data-i18n="a2">The first version is for your website. WhatsApp can be added later, if needed.</p>
+          <summary data-i18n="q2">Just send me the price here and we'll see.</summary>
+          <p data-i18n="a2">If I give you a number before you see what's included, we'll be talking about different things. Start with the <a href="#demo">demo</a>, then we set up the call.</p>
         </details>
+        <!-- 3. Tiempo -->
         <details>
-          <summary data-i18n="q3">Does it connect to my calendar?</summary>
-          <p data-i18n="a3">Not at first: it organizes requests and you confirm them. A connection can be considered later.</p>
+          <summary data-i18n="q3">How long until it's up and running?</summary>
+          <p data-i18n="a3">Usually 14 days. If it's only FAQs, 7. If we add quotes or several services, up to 30. The date is in writing before we start.</p>
         </details>
+        <!-- 4. "No sé si es para mi rubro" -->
         <details>
-          <summary data-i18n="q4">What happens to my clients' data?</summary>
-          <p data-i18n="a4">It only asks for what's needed, never medical details, and it tells people they're talking to an AI assistant.</p>
+          <summary data-i18n="q4">I'm not sure it works for my kind of business.</summary>
+          <p data-i18n="a4">If people keep asking you the same questions and you get appointment or quote requests, it works. In the call I show you the demo with questions from your business, and if it's not for you, I'll tell you.</p>
         </details>
+        <!-- 5. La IA inventa -->
         <details>
-          <summary data-i18n="q5">Do I need to know about technology?</summary>
-          <p data-i18n="a5">No. You give me the information and review the summaries. I do the rest.</p>
+          <summary data-i18n="q5">What if the AI makes things up?</summary>
+          <p data-i18n="a5">It only uses the information you approve. If it doesn't know something, it doesn't invent: it hands over to a person. And it never confirms appointments or gives diagnoses.</p>
         </details>
+        <!-- 6. "¿Y si no funciona?" -->
         <details>
-          <summary data-i18n="q6">What if something doesn't work?</summary>
-          <p data-i18n="a6">After the first week of use we do a round of adjustments with real questions, and I fix whatever's needed.</p>
+          <summary data-i18n="q6">What if it doesn't work the way I expected?</summary>
+          <p data-i18n="a6">Before I build anything, you get in writing what it does and what it doesn't. After the first week of use we do a round of adjustments with real questions, and I fix whatever's needed.</p>
         </details>
+        <!-- 7. "¿Me quedo trabado después?" -->
         <details>
-          <summary data-i18n="q7">You work remotely. How do we organize?</summary>
-          <p data-i18n="a7">Everything happens by video call and email. The assistant lives on your website, so it works the same wherever I am.</p>
+          <summary data-i18n="q7">Will I be stuck with you afterwards?</summary>
+          <p data-i18n="a7">No. The assistant lives on your website and the information is yours. I leave everything documented. Monthly support is optional and you can cancel it with one month's notice. And you don't need to know about technology to use it.</p>
+        </details>
+        <!-- 8. Datos de los clientes -->
+        <details>
+          <summary data-i18n="q8">What happens to my clients' data?</summary>
+          <p data-i18n="a8">It only asks for what's needed for the request, never medical details, and it tells people they're talking to an AI assistant. I also explain in writing where each piece of data is stored.</p>
         </details>
       </div>
     </section>
@@ -859,20 +874,22 @@
 
         faq_tag: "Preguntas frecuentes",
         faq_h2: "Lo que todos preguntan antes de arrancar.",
-        q1: "¿Y si la IA responde cualquier cosa?",
-        a1: "Solo usa la información que vos aprobás. Si no sabe algo, deriva a una persona.",
-        q2: "¿Funciona por WhatsApp?",
-        a2: "La primera versión es para tu web. WhatsApp se puede sumar después, si hace falta.",
-        q3: "¿Se conecta con mi agenda?",
-        a3: "Al principio no: ordena los pedidos y vos confirmás. La conexión se evalúa más adelante.",
-        q4: "¿Qué pasa con los datos de mis clientes?",
-        a4: "Pide solo lo necesario, nunca detalles médicos, y avisa que es un asistente de IA.",
-        q5: "¿Tengo que saber de tecnología?",
-        a5: "No. Vos me pasás la información y revisás los resúmenes. El resto lo hago yo.",
-        q6: "¿Y si algo no anda?",
-        a6: "Después de la primera semana de uso hacemos una ronda de ajustes con consultas reales, y corrijo lo que haga falta.",
-        q7: "Trabajás remoto: ¿cómo nos organizamos?",
-        a7: "Todo por videollamada y mail. El asistente vive en tu web, así que funciona igual esté yo donde esté.",
+        q1: "¿Cuánto sale?",
+        a1: "Lo vemos en 20 minutos, después de que veas la <a href=\"#demo\">demo</a>. Así cotizo tu caso, no un paquete genérico. Te paso un número cerrado, por escrito.",
+        q2: "Mandame el precio por acá y después vemos.",
+        a2: "Si te paso un número sin que veas lo que incluye, los dos vamos a hablar de cosas distintas. Empezá por la <a href=\"#demo\">demo</a>, después coordinamos.",
+        q3: "¿Cuánto tarda en estar andando?",
+        a3: "Normalmente 14 días. Si es solo para preguntas frecuentes, 7. Si sumamos presupuestos o varios servicios, hasta 30. La fecha queda por escrito antes de arrancar.",
+        q4: "No sé si esto sirve para mi rubro.",
+        a4: "Si te repiten las mismas preguntas y te llegan pedidos de turno o de presupuesto, sirve. En la reunión te muestro la demo con preguntas de tu negocio, y si no es para vos, te lo digo.",
+        q5: "¿Y si la IA responde cualquier cosa?",
+        a5: "Solo usa la información que vos aprobás. Si no sabe algo, no inventa: deriva a una persona. Y nunca confirma turnos ni da diagnósticos.",
+        q6: "¿Y si no funciona como esperaba?",
+        a6: "Antes de construir te paso por escrito qué hace y qué no. Después de la primera semana de uso hacemos una ronda de ajustes con consultas reales, y corrijo lo que haga falta.",
+        q7: "¿Me quedo trabado con vos después?",
+        a7: "No. El asistente queda en tu web y la información es tuya. Te dejo todo documentado. El soporte mensual es opcional y lo cancelás con un mes de aviso. Y no necesitás saber de tecnología para usarlo.",
+        q8: "¿Qué pasa con los datos de mis clientes?",
+        a8: "Pide solo lo necesario para el pedido, nunca detalles médicos, y avisa que es un asistente de IA. Además, te explico por escrito dónde queda guardado cada dato.",
 
         meet_h2: "Veamos si te sirve.",
         meet_p: "Te muestro la demo con preguntas de un negocio como el tuyo. Sin compromiso: si no es para vos, te lo digo.",
