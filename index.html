@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FlowPilot AI · Lorenzo</title>
-  <meta name="description" content="Asistentes con IA para negocios chicos de servicios en Países Bajos.">
+  <meta name="description" content="AI assistants for small service businesses: answer common questions and organize appointment and quote requests. 100% remote. · Asistentes con IA para negocios de servicios.">
 
   <style>
     /* ===================================================
@@ -355,6 +355,36 @@
     /* ===================================================
        5. CÓMO SE ARMA UN PRESUPUESTO
        =================================================== */
+    #presupuesto .dos-columnas { margin-bottom: 4px; }
+    .nota { color: var(--gris); font-size: 0.92rem; margin-top: 10px; }
+
+    /* Camino al número: 3 pasos en fila */
+    .camino {
+      list-style: none;
+      counter-reset: paso;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 28px;
+      margin: 24px 0;
+      font-weight: 700;
+      color: var(--azul);
+    }
+    .camino li { counter-increment: paso; position: relative; }
+    .camino li::before {
+      content: counter(paso);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--acento);
+      color: #fff;
+      font-size: 0.85rem;
+    }
+    .camino a { color: var(--azul); }
+
     .aviso {
       margin-top: 20px;
       padding: 18px 20px;
@@ -411,29 +441,70 @@
       .dos-columnas { grid-template-columns: 1fr; } /* una columna */
       .pasos { grid-template-columns: 1fr; }        /* pasos uno abajo del otro */
       .demo { grid-template-columns: 1fr; }         /* chat arriba, bandeja abajo */
+      .camino { flex-direction: column; }           /* camino al número, en columna */
       .chat-mensajes { height: 320px; }
       .boton { display: block; text-align: center; }
     }
+
+    /* ===================================================
+       SELECTOR DE IDIOMA (EN / ES)
+       =================================================== */
+    .header-derecha { display: flex; align-items: center; gap: 14px; }
+    .idiomas {
+      display: flex;
+      gap: 2px;
+      border: 1px solid var(--borde);
+      border-radius: 999px;
+      padding: 3px;
+    }
+    .idiomas button {
+      border: 0;
+      background: none;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gris);
+      cursor: pointer;
+    }
+    .idiomas button[aria-pressed="true"] { background: var(--azul); color: #fff; }
   </style>
 </head>
 
 <body>
 
   <!-- ===================================================
-       HEADER: nombre y menú
+       CÓMO FUNCIONAN LOS IDIOMAS
+       - El texto que ves acá abajo está en INGLÉS (idioma principal).
+       - Cada texto tiene un data-i18n="clave".
+       - La traducción al ESPAÑOL está en el <script> del final,
+         en el objeto TEXTOS.es, con la misma clave.
+       - Para cambiar un texto: cambialo acá (inglés) y en TEXTOS.es (español).
+       =================================================== -->
+
+  <!-- ===================================================
+       HEADER: nombre, menú y selector de idioma
        =================================================== -->
   <header>
     <div class="contenedor header-interno">
       <a href="#presentacion" class="logo">
         FlowPilot <span>AI</span>
-        <small>por Lorenzo</small>
+        <small data-i18n="logo_by">by Lorenzo</small>
       </a>
-      <nav>
-        <a href="#para-quien">Para quién</a>
-        <a href="#demo">Demo</a>
-        <a href="#como-trabajo">Cómo trabajo</a>
-        <a href="#preguntas">Preguntas</a>
-      </nav>
+      <div class="header-derecha">
+        <nav>
+          <a href="#para-quien" data-i18n="nav_who">Who it's for</a>
+          <a href="#demo" data-i18n="nav_demo">Demo</a>
+          <a href="#como-trabajo" data-i18n="nav_how">How I work</a>
+          <a href="#preguntas" data-i18n="nav_faq">FAQ</a>
+        </nav>
+        <!-- Selector de idioma -->
+        <div class="idiomas" role="group" aria-label="Language / Idioma">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -445,17 +516,11 @@
          =================================================== -->
     <section id="presentacion">
       <div class="contenedor">
-        <!-- Para quién: se lee primero, en una línea -->
-        <span class="etiqueta">Para consultorios y profesionales de servicios en Países Bajos</span>
-
-        <!-- La oferta en una frase: qué entrego y qué problema saca -->
-        <h1>Un asistente en tu web que responde las preguntas de siempre y te deja ordenados los pedidos de turno o de presupuesto.</h1>
-
-        <!-- Cómo funciona y en cuánto tiempo, en una frase corta -->
-        <p>Responde solo con la información que vos aprobás, en neerlandés e inglés. Los turnos los confirmás vos. Lo tenés andando en 2 semanas.</p>
-
-        <a href="#reunion" class="boton">Agendá una reunión de 20 minutos</a>
-        <p class="firma">Soy Lorenzo, y lo armo y lo ajusto con vos.</p>
+        <span class="etiqueta" data-i18n="hero_tag">For clinics and service professionals · 100% remote</span>
+        <h1 data-i18n="hero_h1">An assistant on your website that answers the same questions every day and keeps your appointment and quote requests organized.</h1>
+        <p data-i18n="hero_p">It only answers with information you approve, in your clients' language. You confirm the appointments. Up and running in 2 weeks.</p>
+        <a href="#reunion" class="boton cta-reunion" data-i18n="cta_hero">Book a 20-minute call</a>
+        <p class="firma" data-i18n="hero_sig">I'm Lorenzo. I build it and fine-tune it with you, wherever you are.</p>
       </div>
     </section>
 
@@ -465,25 +530,23 @@
          =================================================== -->
     <section id="para-quien">
       <div class="contenedor">
-        <span class="etiqueta">Para quién es</span>
-        <h2>¿Es para un negocio como el tuyo?</h2>
+        <span class="etiqueta" data-i18n="who_tag">Who it's for</span>
+        <h2 data-i18n="who_h2">Is it for a business like yours?</h2>
         <div class="dos-columnas">
-          <!-- 3 viñetas: a quién SÍ le sirve -->
           <div class="tarjeta si">
-            <h3>✓ Es para vos si…</h3>
+            <h3 data-i18n="yes_h">✓ It's for you if…</h3>
             <ul class="lista">
-              <li>Tenés un consultorio con turnos: fisioterapia, odontología, veterinaria o estética.</li>
-              <li>Trabajás a domicilio y te piden presupuestos: electricidad, plomería o pintura.</li>
-              <li>Contestás las mismas preguntas todos los días, por la web o por mail.</li>
+              <li data-i18n="yes_1">You run a clinic with appointments: physiotherapy, dental, veterinary or beauty.</li>
+              <li data-i18n="yes_2">You work on-site and give quotes: electrical, plumbing or painting.</li>
+              <li data-i18n="yes_3">You answer the same questions every day, on your website or by email.</li>
             </ul>
           </div>
-          <!-- 3 viñetas: a quién NO le sirve (baja las objeciones raras) -->
           <div class="tarjeta no">
-            <h3>✗ No es para vos si…</h3>
+            <h3 data-i18n="no_h">✗ It's not for you if…</h3>
             <ul class="lista">
-              <li>Sos una cadena grande y necesitás conectar sistemas complejos.</li>
-              <li>Querés que la IA confirme turnos sola o dé diagnósticos.</li>
-              <li>No tenés a nadie que revise los pedidos que llegan.</li>
+              <li data-i18n="no_1">You're a large chain that needs to connect complex systems.</li>
+              <li data-i18n="no_2">You want AI to confirm appointments or give diagnoses on its own.</li>
+              <li data-i18n="no_3">Nobody on your team can review the requests that come in.</li>
             </ul>
           </div>
         </div>
@@ -493,16 +556,16 @@
     <!-- ===================================================
          3. DEMO (antes y después)
          Objeción que mata: "¿Qué me vas a entregar, en concreto?"
-         La caja punteada es el lugar donde después va la demo real.
          =================================================== -->
     <section id="demo">
       <div class="contenedor">
-        <span class="etiqueta">Demo</span>
-        <h2>Mirá cómo cambia un día de trabajo.</h2>
-        <!-- ANTES, en una frase -->
-        <p class="frase antes"><strong>Antes:</strong> la recepción contesta todo el día los mismos horarios y anota los pedidos de turno en papelitos, entre paciente y paciente.</p>
+        <span class="etiqueta" data-i18n="demo_tag">Demo</span>
+        <h2 data-i18n="demo_h2">See how a workday changes.</h2>
 
-        <p class="demo-ayuda">Probalo como si fueras un paciente de <strong>Fysio Centrum Kralingen</strong>, un consultorio de fisioterapia ficticio en Rotterdam. Tocá una pregunta o escribí la tuya.</p>
+        <!-- ANTES, en una frase -->
+        <p class="frase antes" data-i18n="before"><strong>Before:</strong> reception answers the same opening hours all day and writes appointment requests on sticky notes, between patients.</p>
+
+        <p class="demo-ayuda" data-i18n="demo_help">Try it as a patient of <strong>Fysio Centrum Kralingen</strong>, a fictional physiotherapy clinic in Rotterdam. Tap a question or type your own.</p>
 
         <!-- LA DEMO: chat del paciente (izquierda) + bandeja de recepción (derecha) -->
         <div class="demo">
@@ -511,21 +574,21 @@
           <div class="demo-col">
             <div class="demo-cabecera">
               <strong>Fysio Centrum Kralingen</strong>
-              <span>Asistente de IA (demo). No reemplaza a un profesional.</span>
+              <span data-i18n="chat_sub">AI assistant (demo). Not a substitute for a professional.</span>
             </div>
             <div id="chat-mensajes" class="chat-mensajes" aria-live="polite"></div>
             <div id="chat-opciones" class="chips"></div>
             <form id="chat-form" class="chat-form">
-              <input id="chat-input" type="text" placeholder="Escribí tu pregunta…" autocomplete="off" aria-label="Escribí tu mensaje">
-              <button type="submit">Enviar</button>
+              <input id="chat-input" type="text" autocomplete="off" aria-label="Message">
+              <button type="submit" data-i18n="send">Send</button>
             </form>
           </div>
 
           <!-- Columna 2: lo que ve la recepción -->
           <div class="demo-col">
             <div class="demo-cabecera">
-              <strong>Bandeja de recepción</strong>
-              <span id="bandeja-contador">2 solicitudes</span>
+              <strong data-i18n="inbox_h">Reception inbox</strong>
+              <span id="bandeja-contador"></span>
             </div>
             <div id="bandeja" class="bandeja"></div>
           </div>
@@ -533,11 +596,11 @@
         </div>
 
         <!-- DESPUÉS, en una frase -->
-        <p class="frase despues"><strong>Después:</strong> el asistente responde solo con lo que el consultorio aprobó, y la recepción recibe cada pedido ordenado, con el mensaje listo para revisar y enviar.</p>
+        <p class="frase despues" data-i18n="after"><strong>After:</strong> the assistant only answers with what the clinic approved, and reception gets every request organized, with a message ready to review and send.</p>
 
         <div class="demo-acciones">
-          <button id="demo-reiniciar" type="button" class="boton boton-borde">Probar de nuevo</button>
-          <a href="#reunion" class="boton">¿Lo ves claro? Agendá 20 minutos y te armo la versión para tu negocio</a>
+          <button id="demo-reiniciar" type="button" class="boton boton-borde" data-i18n="restart">Try again</button>
+          <a href="#reunion" class="boton cta-reunion" data-i18n="demo_cta">Clear enough? Book 20 minutes and I'll build the version for your business</a>
         </div>
       </div>
     </section>
@@ -548,103 +611,138 @@
          =================================================== -->
     <section id="como-trabajo">
       <div class="contenedor">
-        <span class="etiqueta">Cómo trabajo</span>
-        <h2>Así sería trabajar conmigo, paso a paso.</h2>
-        <p class="intro-pasos">Primero ves la demo con tu negocio. Recién después, en una charla 1:1, hablamos de plata. Nunca al revés.</p>
+        <span class="etiqueta" data-i18n="how_tag">How I work</span>
+        <h2 data-i18n="how_h2">What working with me looks like, step by step.</h2>
+        <p class="intro-pasos" data-i18n="how_intro">First you see the demo with your business. Only then, in a 1:1 call, do we talk money. Never the other way around.</p>
 
         <!-- Los 6 pasos, en orden. El precio nunca aparece en la web. -->
         <ol class="pasos">
           <li>
             <span class="numero">1</span>
-            <h3>Charlamos 20 minutos</h3>
-            <p>Me contás qué te piden tus clientes todos los días y dónde se te va el tiempo. Yo escucho y pregunto.</p>
+            <h3 data-i18n="s1_h">A 20-minute call</h3>
+            <p data-i18n="s1_p">You tell me what your clients ask every day and where your time goes. I listen and ask questions.</p>
           </li>
           <li class="destacado">
             <span class="numero">2</span>
-            <h3>Ves la demo con tu negocio</h3>
-            <p>Te la muestro cargada con tus preguntas reales. Si te sirve, recién ahí, en esa charla 1:1, hablamos de inversión.</p>
+            <h3 data-i18n="s2_h">You see the demo with your business</h3>
+            <p data-i18n="s2_p">I show it to you loaded with your real questions. If it's useful, right there in that 1:1 call we talk about the investment.</p>
           </li>
           <li>
             <span class="numero">3</span>
-            <h3>Te paso el alcance por escrito</h3>
-            <p>Una página con qué entra, qué no entra y la fecha de entrega. Sin letra chica.</p>
+            <h3 data-i18n="s3_h">You get the scope in writing</h3>
+            <p data-i18n="s3_p">One page with what's included, what isn't, and the delivery date. No fine print.</p>
           </li>
           <li>
             <span class="numero">4</span>
-            <h3>Lo construyo</h3>
-            <p>Normalmente en 14 días. Si es solo para preguntas frecuentes, en 7. Si sumamos presupuestos o varios servicios, hasta 30.</p>
+            <h3 data-i18n="s4_h">I build it</h3>
+            <p data-i18n="s4_p">Usually in 14 days. If it's only FAQs, in 7. If we add quotes or several services, up to 30.</p>
           </li>
           <li>
             <span class="numero">5</span>
-            <h3>Te lo entrego y lo ajustamos</h3>
-            <p>Lo dejo funcionando en tu web y, después de la primera semana de uso, hacemos una ronda de ajustes con consultas reales.</p>
+            <h3 data-i18n="s5_h">I deliver it and we fine-tune it</h3>
+            <p data-i18n="s5_p">I set it up on your website and, after the first week of use, we do one round of adjustments with real questions.</p>
           </li>
           <li>
             <span class="numero">6</span>
-            <h3>Seguimos si lo necesitás</h3>
-            <p>Si cambian tus horarios o servicios, lo actualizo. Y si más adelante querés sumar algo, como WhatsApp, lo vemos de a una cosa por vez.</p>
+            <h3 data-i18n="s6_h">We keep going if you need it</h3>
+            <p data-i18n="s6_p">If your hours or services change, I update it. And if you want to add something later, like WhatsApp, we take it one step at a time.</p>
           </li>
         </ol>
 
         <!-- Lo que pone el cliente -->
         <div class="pone-cliente">
-          <h3>Lo que ponés vos</h3>
+          <h3 data-i18n="you_h">What you bring</h3>
           <ul class="lista">
-            <li>Tus datos: preguntas frecuentes, servicios, horarios y políticas. Si no los tenés escritos, los armamos juntos.</li>
-            <li>Los accesos a tu web, para poder instalar el asistente.</li>
-            <li>Una reunión por semana mientras lo construyo, de 20 o 30 minutos.</li>
+            <li data-i18n="you_1">Your information: FAQs, services, hours and policies. If it isn't written down, we put it together.</li>
+            <li data-i18n="you_2">Access to your website, so I can install the assistant.</li>
+            <li data-i18n="you_3">One video call per week while I build it, 20 to 30 minutes.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- ===================================================
-         5. CÓMO SE ARMA UN PRESUPUESTO
+         5. CÓMO SE ARMA LA INVERSIÓN
          Objeción que mata: "¿De dónde sale el precio?"
-         IMPORTANTE: acá nunca va un número.
+         IMPORTANTE: acá NUNCA va un número, ni "desde", ni rangos.
          =================================================== -->
     <section id="presupuesto">
       <div class="contenedor">
-        <span class="etiqueta">Presupuesto</span>
-        <h2>Cada negocio es distinto, así que el presupuesto también.</h2>
-        <p>Depende de cuántos servicios y preguntas tenés, de si necesitás turnos, presupuestos o las dos cosas, y de los idiomas.</p>
-        <p class="aviso">El número lo hablamos en una reunión de 20 minutos, después de que veas la demo. Nunca antes.</p>
+        <span class="etiqueta" data-i18n="inv_tag">Investment</span>
+        <h2 data-i18n="inv_h2">How the investment is put together</h2>
+
+        <p data-i18n="inv_p">I don't have a price list: every clinic has its own questions, services and timing. That's why I quote on a demo you've already seen, not on an idea.</p>
+
+        <div class="dos-columnas">
+          <div class="tarjeta">
+            <h3 data-i18n="dep_h">What it depends on</h3>
+            <ul class="lista">
+              <li data-i18n="dep_1"><strong>Scope:</strong> FAQs only, or also appointment requests and notifications.</li>
+              <li data-i18n="dep_2"><strong>Timing:</strong> when you need it up and running.</li>
+              <li data-i18n="dep_3"><strong>What you bring:</strong> whether your information is already written down or we put it together.</li>
+              <li data-i18n="dep_4"><strong>Support:</strong> whether you want me to maintain it after delivery.</li>
+            </ul>
+          </div>
+          <div class="tarjeta">
+            <h3 data-i18n="not_h">What's not included</h3>
+            <ul class="lista">
+              <li data-i18n="not_1">Connecting your calendar or patient system.</li>
+              <li data-i18n="not_2">WhatsApp or online payments.</li>
+              <li data-i18n="not_3">Redesigning your website.</li>
+            </ul>
+            <p class="nota" data-i18n="not_note">If you need any of these, we discuss it separately.</p>
+          </div>
+        </div>
+
+        <p class="aviso" data-i18n="inv_why">Why don't I publish a number? Because a price you see before the result gets compared against thin air. First you see the demo, then we talk 1:1 and I give you a fixed price, in writing.</p>
+
+        <!-- El único camino al número: demo → reunión → inversión -->
+        <ol class="camino">
+          <li><a href="#demo" data-i18n="path_1">See the demo</a></li>
+          <li data-i18n="path_2">Book 20 minutes</li>
+          <li data-i18n="path_3">That's when you get the investment</li>
+        </ol>
+
+        <a href="#reunion" class="boton cta-reunion" data-i18n="cta_meeting">Book the 20-minute call</a>
       </div>
     </section>
 
     <!-- ===================================================
          6. PREGUNTAS FRECUENTES
          Objeción que mata: "¿Y si no anda?"
-         Cada <details> se abre y se cierra con un clic.
          =================================================== -->
     <section id="preguntas">
       <div class="contenedor">
-        <span class="etiqueta">Preguntas frecuentes</span>
-        <h2>Lo que todos preguntan antes de arrancar.</h2>
+        <span class="etiqueta" data-i18n="faq_tag">FAQ</span>
+        <h2 data-i18n="faq_h2">What everyone asks before getting started.</h2>
 
         <details>
-          <summary>¿Y si la IA responde cualquier cosa?</summary>
-          <p>Solo usa la información que vos aprobás. Si no sabe algo, deriva a una persona.</p>
+          <summary data-i18n="q1">What if the AI makes things up?</summary>
+          <p data-i18n="a1">It only uses information you approve. If it doesn't know something, it hands over to a person.</p>
         </details>
         <details>
-          <summary>¿Funciona por WhatsApp?</summary>
-          <p>La primera versión es para tu web. WhatsApp se puede sumar después, si hace falta.</p>
+          <summary data-i18n="q2">Does it work on WhatsApp?</summary>
+          <p data-i18n="a2">The first version is for your website. WhatsApp can be added later, if needed.</p>
         </details>
         <details>
-          <summary>¿Se conecta con mi agenda?</summary>
-          <p>Al principio no: ordena los pedidos y vos confirmás. La conexión se evalúa más adelante.</p>
+          <summary data-i18n="q3">Does it connect to my calendar?</summary>
+          <p data-i18n="a3">Not at first: it organizes requests and you confirm them. A connection can be considered later.</p>
         </details>
         <details>
-          <summary>¿Qué pasa con los datos de mis clientes?</summary>
-          <p>Pide solo lo necesario, nunca detalles médicos, y avisa que es un asistente de IA.</p>
+          <summary data-i18n="q4">What happens to my clients' data?</summary>
+          <p data-i18n="a4">It only asks for what's needed, never medical details, and it tells people they're talking to an AI assistant.</p>
         </details>
         <details>
-          <summary>¿Tengo que saber de tecnología?</summary>
-          <p>No. Vos me pasás la información y revisás los resúmenes. El resto lo hago yo.</p>
+          <summary data-i18n="q5">Do I need to know about technology?</summary>
+          <p data-i18n="a5">No. You give me the information and review the summaries. I do the rest.</p>
         </details>
         <details>
-          <summary>¿Y si algo no anda?</summary>
-          <p>Después de la primera semana de uso hacemos una ronda de ajustes con consultas reales, y corrijo lo que haga falta.</p>
+          <summary data-i18n="q6">What if something doesn't work?</summary>
+          <p data-i18n="a6">After the first week of use we do a round of adjustments with real questions, and I fix whatever's needed.</p>
+        </details>
+        <details>
+          <summary data-i18n="q7">You work remotely. How do we organize?</summary>
+          <p data-i18n="a7">Everything happens by video call and email. The assistant lives on your website, so it works the same wherever I am.</p>
         </details>
       </div>
     </section>
@@ -652,111 +750,341 @@
     <!-- ===================================================
          7. CTA FINAL: reunión de 20 minutos
          Objeción que mata: "¿Cuál es el siguiente paso?"
-         TODO: reemplazar href="#" por tu link de agenda (por ejemplo Calendly).
+         El link de WhatsApp se cambia en UN solo lugar: la línea
+         const WHATSAPP, al principio del <script> del final.
          =================================================== -->
     <section id="reunion">
       <div class="contenedor">
-        <h2>Veamos si te sirve.</h2>
-        <p>Te muestro la demo con preguntas de un negocio como el tuyo. Sin compromiso: si no es para vos, te lo digo.</p>
-        <a href="#" class="boton">Agendá una reunión de 20 minutos</a>
+        <h2 data-i18n="meet_h2">Let's see if it's a fit.</h2>
+        <p data-i18n="meet_p">I'll show you the demo with questions from a business like yours. No strings attached: if it's not for you, I'll tell you.</p>
+        <a href="#reunion" class="boton cta-reunion" data-i18n="cta_meeting">Book the 20-minute call</a>
       </div>
     </section>
 
   </main>
 
-  <footer>
-    © 2026 FlowPilot AI · Lorenzo · Países Bajos
+  <footer data-i18n="footer">
+    © 2026 FlowPilot AI · Lorenzo · 100% remote
   </footer>
 
   <script>
     /* =====================================================
-       DEMO DE FLOWPILOT AI
-       Todo corre en el navegador: no hay servidor, ni IA real,
-       ni API keys. Las respuestas son fijas y "aprobadas" por
-       el consultorio ficticio, para mostrar cómo funcionaría.
+       👉 TU LINK DE WHATSAPP: CAMBIÁ SOLO ESTA LÍNEA
+       Formato: https://wa.me/ + tu número con código de país,
+       sin +, sin espacios y sin guiones. Ejemplo: https://wa.me/31612345678
+       Mientras tenga las X, los botones llevan a la sección
+       de reunión de esta misma página.
        ===================================================== */
+    const WHATSAPP = "https://wa.me/316XXXXXXXX";
 
-    // ---------- 1. Información aprobada por el consultorio ----------
-    const INFO = {
-      horarios: "Atendemos de lunes a viernes de 8:00 a 20:00, y los sábados de 9:00 a 13:00.",
-      direccion: "Estamos en Voorbeeldstraat 12, Rotterdam (Kralingen). Hay estacionamiento para bicis en la puerta y la parada de metro Kralingse Zoom queda a 5 minutos.",
-      derivacion: "No necesitás derivación de tu médico de cabecera (huisarts) para venir. Podés pedir turno directamente.",
-      seguro: "Depende de tu seguro complementario (aanvullende verzekering). Te recomendamos revisar tu póliza. Recepción te puede ayudar a verlo.",
-      cancelar: "Si no podés venir, avisá con al menos 24 horas de anticipación respondiendo el mensaje de confirmación o llamando a recepción.",
-      llevar: "Traé ropa cómoda, una toalla y tu tarjeta del seguro. La primera consulta dura unos 45 minutos.",
-      precios: "Las tarifas te las confirma recepción, porque dependen del tipo de tratamiento y de tu seguro.",
-      diagnostico: "No puedo darte un diagnóstico: eso lo hace el fisioterapeuta en la consulta. Si querés, te ayudo a pedir un turno.",
-      noSe: "No tengo esa información aprobada por el consultorio, así que prefiero no inventar. Te paso con recepción, o si querés, pedí un turno."
+    /* =====================================================
+       1. TRADUCCIONES DE LA PÁGINA
+       El inglés se toma del HTML de arriba.
+       Acá va el español, con las mismas claves (data-i18n).
+       ===================================================== */
+    const TEXTOS = {
+      es: {
+        logo_by: "por Lorenzo",
+        nav_who: "Para quién",
+        nav_demo: "Demo",
+        nav_how: "Cómo trabajo",
+        nav_faq: "Preguntas",
+
+        hero_tag: "Para consultorios y profesionales de servicios · 100 % remoto",
+        hero_h1: "Un asistente en tu web que responde las preguntas de siempre y te deja ordenados los pedidos de turno o de presupuesto.",
+        hero_p: "Responde solo con la información que vos aprobás, en el idioma de tus clientes. Los turnos los confirmás vos. Lo tenés andando en 2 semanas.",
+        cta_hero: "Agendá una reunión de 20 minutos",
+        hero_sig: "Soy Lorenzo. Lo armo y lo ajusto con vos, estés donde estés.",
+
+        who_tag: "Para quién es",
+        who_h2: "¿Es para un negocio como el tuyo?",
+        yes_h: "✓ Es para vos si…",
+        yes_1: "Tenés un consultorio con turnos: fisioterapia, odontología, veterinaria o estética.",
+        yes_2: "Trabajás a domicilio y te piden presupuestos: electricidad, plomería o pintura.",
+        yes_3: "Contestás las mismas preguntas todos los días, por la web o por mail.",
+        no_h: "✗ No es para vos si…",
+        no_1: "Sos una cadena grande y necesitás conectar sistemas complejos.",
+        no_2: "Querés que la IA confirme turnos sola o dé diagnósticos.",
+        no_3: "No tenés a nadie que revise los pedidos que llegan.",
+
+        demo_tag: "Demo",
+        demo_h2: "Mirá cómo cambia un día de trabajo.",
+        before: "<strong>Antes:</strong> la recepción contesta todo el día los mismos horarios y anota los pedidos de turno en papelitos, entre paciente y paciente.",
+        demo_help: "Probalo como si fueras un paciente de <strong>Fysio Centrum Kralingen</strong>, un consultorio de fisioterapia ficticio en Rotterdam. Tocá una pregunta o escribí la tuya.",
+        chat_sub: "Asistente de IA (demo). No reemplaza a un profesional.",
+        send: "Enviar",
+        inbox_h: "Bandeja de recepción",
+        after: "<strong>Después:</strong> el asistente responde solo con lo que el consultorio aprobó, y la recepción recibe cada pedido ordenado, con el mensaje listo para revisar y enviar.",
+        restart: "Probar de nuevo",
+        demo_cta: "¿Lo ves claro? Agendá 20 minutos y te armo la versión para tu negocio",
+
+        how_tag: "Cómo trabajo",
+        how_h2: "Así sería trabajar conmigo, paso a paso.",
+        how_intro: "Primero ves la demo con tu negocio. Recién después, en una charla 1:1, hablamos de plata. Nunca al revés.",
+        s1_h: "Charlamos 20 minutos",
+        s1_p: "Me contás qué te piden tus clientes todos los días y dónde se te va el tiempo. Yo escucho y pregunto.",
+        s2_h: "Ves la demo con tu negocio",
+        s2_p: "Te la muestro cargada con tus preguntas reales. Si te sirve, recién ahí, en esa charla 1:1, hablamos de inversión.",
+        s3_h: "Te paso el alcance por escrito",
+        s3_p: "Una página con qué entra, qué no entra y la fecha de entrega. Sin letra chica.",
+        s4_h: "Lo construyo",
+        s4_p: "Normalmente en 14 días. Si es solo para preguntas frecuentes, en 7. Si sumamos presupuestos o varios servicios, hasta 30.",
+        s5_h: "Te lo entrego y lo ajustamos",
+        s5_p: "Lo dejo funcionando en tu web y, después de la primera semana de uso, hacemos una ronda de ajustes con consultas reales.",
+        s6_h: "Seguimos si lo necesitás",
+        s6_p: "Si cambian tus horarios o servicios, lo actualizo. Y si más adelante querés sumar algo, como WhatsApp, lo vemos de a una cosa por vez.",
+        you_h: "Lo que ponés vos",
+        you_1: "Tus datos: preguntas frecuentes, servicios, horarios y políticas. Si no los tenés escritos, los armamos juntos.",
+        you_2: "Los accesos a tu web, para poder instalar el asistente.",
+        you_3: "Una videollamada por semana mientras lo construyo, de 20 o 30 minutos.",
+
+        inv_tag: "Inversión",
+        inv_h2: "Cómo se arma la inversión",
+        inv_p: "No tengo una lista de precios: cada consultorio tiene sus preguntas, sus servicios y sus tiempos. Por eso cotizo sobre una demo que ya viste, no sobre una idea.",
+        dep_h: "De qué depende",
+        dep_1: "<strong>El alcance:</strong> solo preguntas frecuentes, o también pedidos de turno y avisos.",
+        dep_2: "<strong>El plazo:</strong> cuándo lo necesitás funcionando.",
+        dep_3: "<strong>Lo que ponés vos:</strong> si ya tenés la información escrita o la armamos juntos.",
+        dep_4: "<strong>El soporte:</strong> si querés que lo mantenga después de la entrega.",
+        not_h: "Qué no incluye",
+        not_1: "Conectar tu agenda o tu sistema de pacientes.",
+        not_2: "WhatsApp ni pagos online.",
+        not_3: "Rediseñar tu web.",
+        not_note: "Si algo de esto hace falta, se habla aparte.",
+        inv_why: "¿Por qué no publico el número? Porque un precio sin haber visto el resultado se compara contra el aire. Primero mirás la demo, después lo hablamos 1:1 y te paso un número cerrado, por escrito.",
+        path_1: "Mirá la demo",
+        path_2: "Agendá 20 minutos",
+        path_3: "Ahí te paso la inversión",
+        cta_meeting: "Agendá la reunión de 20 minutos",
+
+        faq_tag: "Preguntas frecuentes",
+        faq_h2: "Lo que todos preguntan antes de arrancar.",
+        q1: "¿Y si la IA responde cualquier cosa?",
+        a1: "Solo usa la información que vos aprobás. Si no sabe algo, deriva a una persona.",
+        q2: "¿Funciona por WhatsApp?",
+        a2: "La primera versión es para tu web. WhatsApp se puede sumar después, si hace falta.",
+        q3: "¿Se conecta con mi agenda?",
+        a3: "Al principio no: ordena los pedidos y vos confirmás. La conexión se evalúa más adelante.",
+        q4: "¿Qué pasa con los datos de mis clientes?",
+        a4: "Pide solo lo necesario, nunca detalles médicos, y avisa que es un asistente de IA.",
+        q5: "¿Tengo que saber de tecnología?",
+        a5: "No. Vos me pasás la información y revisás los resúmenes. El resto lo hago yo.",
+        q6: "¿Y si algo no anda?",
+        a6: "Después de la primera semana de uso hacemos una ronda de ajustes con consultas reales, y corrijo lo que haga falta.",
+        q7: "Trabajás remoto: ¿cómo nos organizamos?",
+        a7: "Todo por videollamada y mail. El asistente vive en tu web, así que funciona igual esté yo donde esté.",
+
+        meet_h2: "Veamos si te sirve.",
+        meet_p: "Te muestro la demo con preguntas de un negocio como el tuyo. Sin compromiso: si no es para vos, te lo digo.",
+        footer: "© 2026 FlowPilot AI · Lorenzo · 100 % remoto"
+      }
     };
 
-    // ---------- 2. Palabras clave para entender cada pregunta ----------
-    // Se revisan en orden: la primera que coincide gana.
+    // Mensaje que aparece escrito en WhatsApp, según el idioma
+    const MENSAJE_WHATSAPP = {
+      en: "Hi Lorenzo, I saw the FlowPilot AI demo and I'd like to book the 20-minute call.",
+      es: "Hola Lorenzo, vi la demo de FlowPilot AI y quiero agendar la reunión de 20 minutos."
+    };
+
+    /* =====================================================
+       2. TEXTOS DE LA DEMO, EN LOS DOS IDIOMAS
+       Las respuestas son fijas: simulan la información
+       "aprobada" por el consultorio ficticio. No hay IA real.
+       ===================================================== */
+    const DEMO = {
+      en: {
+        hola: "Hi! I'm the assistant of Fysio Centrum Kralingen. I only answer with information the clinic has approved. How can I help?",
+        info: {
+          horarios: "We're open Monday to Friday from 8:00 to 20:00, and Saturdays from 9:00 to 13:00.",
+          direccion: "We're at Voorbeeldstraat 12, Rotterdam (Kralingen). There's bike parking at the door, and Kralingse Zoom metro station is a 5-minute walk away.",
+          derivacion: "You don't need a referral from your GP (huisarts). You can book directly.",
+          seguro: "It depends on your supplementary insurance (aanvullende verzekering). Please check your policy. Reception can help you with it.",
+          cancelar: "If you can't make it, let us know at least 24 hours in advance by replying to the confirmation message or calling reception.",
+          llevar: "Bring comfortable clothes, a towel and your insurance card. The first visit takes about 45 minutes.",
+          precios: "Reception will confirm the rates, because they depend on the treatment and your insurance.",
+          diagnostico: "I can't give you a diagnosis: the physiotherapist does that during the visit. If you like, I can help you request an appointment.",
+          noSe: "I don't have that information approved by the clinic, so I'd rather not make it up. I'll pass you to reception, or you can request an appointment."
+        },
+        rapidas: [
+          ["What are your opening hours?", "horarios"],
+          ["Do I need a GP referral?", "derivacion"],
+          ["Does my insurance cover it?", "seguro"],
+          ["How do I cancel?", "cancelar"],
+          ["My knee hurts, what do I have?", "diagnostico"],
+          ["I'd like an appointment", "turno"]
+        ],
+        preguntas: {
+          nombre: "Sure! What's your name? (first and last name)",
+          contacto: "What phone number or email should we use to contact you?",
+          tipo: "Have you been to the clinic before?",
+          motivo: "Which area is it for? Pick a general option. No need to share medical details.",
+          preferencia: "When suits you best?"
+        },
+        opciones: {
+          tipo: ["New patient", "Existing patient"],
+          motivo: ["Back or neck", "Knee or ankle", "Shoulder or arm", "Recovery after surgery", "Other"],
+          preferencia: ["Mornings (8–12)", "Afternoons (12–17)", "Evenings (17–20)", "Saturday morning"]
+        },
+        sugerencias: ["on Tuesday at 9:30", "on Wednesday at 14:00", "on Thursday at 18:30", "on Saturday at 10:00"],
+        errContacto: "Hmm, that doesn't look like a phone number or an email. Could you send it again?",
+        errOpcion: "Please pick one of the options, so reception has it clear.",
+        resumen: d => "Done, " + d.nombre.split(" ")[0] + ". Here's a summary of your request:\n" +
+          "• " + d.tipoTxt + "\n• Area: " + d.motivoTxt + "\n• Preference: " + d.preferenciaTxt + "\n• Contact: " + d.contacto,
+        aviso: "Important: this is a request, not a confirmed appointment yet. Reception will message you today to offer a time.",
+        mensaje: s => "Hi " + s.nombre.split(" ")[0] + ", thanks for contacting Fysio Centrum Kralingen. " +
+          "We have a spot " + s.sugerencia + " for your " + (s.tipo === 0 ? "first visit" : "next session") +
+          " (" + s.motivoTxt.toLowerCase() + "). Does that work for you? Reply to this message to confirm. Best regards, reception.",
+        ph: { pregunta: "Type your question…", respuesta: "Type your answer…", opcion: "Pick an option…" },
+        b: { una: "request", varias: "requests", nueva: "New", contactada: "Contacted", recibida: "Received",
+             contacto: "Contact", tipo: "Type", zona: "Area", prefiere: "Prefers", listo: "Message ready to send",
+             copiar: "Copy message", copiado: "Copied!", marcar: "Mark as contacted" }
+      },
+      es: {
+        hola: "¡Hola! Soy el asistente de Fysio Centrum Kralingen. Respondo solo con la información que aprobó el consultorio. ¿En qué te ayudo?",
+        info: {
+          horarios: "Atendemos de lunes a viernes de 8:00 a 20:00, y los sábados de 9:00 a 13:00.",
+          direccion: "Estamos en Voorbeeldstraat 12, Rotterdam (Kralingen). Hay estacionamiento para bicis en la puerta y la parada de metro Kralingse Zoom queda a 5 minutos.",
+          derivacion: "No necesitás derivación de tu médico de cabecera (huisarts) para venir. Podés pedir turno directamente.",
+          seguro: "Depende de tu seguro complementario (aanvullende verzekering). Te recomendamos revisar tu póliza. Recepción te puede ayudar a verlo.",
+          cancelar: "Si no podés venir, avisá con al menos 24 horas de anticipación respondiendo el mensaje de confirmación o llamando a recepción.",
+          llevar: "Traé ropa cómoda, una toalla y tu tarjeta del seguro. La primera consulta dura unos 45 minutos.",
+          precios: "Las tarifas te las confirma recepción, porque dependen del tipo de tratamiento y de tu seguro.",
+          diagnostico: "No puedo darte un diagnóstico: eso lo hace el fisioterapeuta en la consulta. Si querés, te ayudo a pedir un turno.",
+          noSe: "No tengo esa información aprobada por el consultorio, así que prefiero no inventar. Te paso con recepción, o si querés, pedí un turno."
+        },
+        rapidas: [
+          ["¿Qué horarios tienen?", "horarios"],
+          ["¿Necesito derivación médica?", "derivacion"],
+          ["¿Lo cubre mi seguro?", "seguro"],
+          ["¿Cómo cancelo un turno?", "cancelar"],
+          ["Me duele la rodilla, ¿qué tengo?", "diagnostico"],
+          ["Quiero pedir un turno", "turno"]
+        ],
+        preguntas: {
+          nombre: "¡Dale! ¿Cómo te llamás? (nombre y apellido)",
+          contacto: "¿A qué teléfono o mail te escribimos?",
+          tipo: "¿Ya viniste antes al consultorio?",
+          motivo: "¿Para qué zona es la consulta? Elegí una opción general. No hace falta que me cuentes detalles médicos.",
+          preferencia: "¿Cuándo te queda mejor?"
+        },
+        opciones: {
+          tipo: ["Paciente nuevo", "Ya soy paciente"],
+          motivo: ["Espalda o cuello", "Rodilla o tobillo", "Hombro o brazo", "Recuperación después de una operación", "Otro"],
+          preferencia: ["Mañanas (8 a 12)", "Tardes (12 a 17)", "Noches (17 a 20)", "Sábado a la mañana"]
+        },
+        sugerencias: ["el martes a las 9:30", "el miércoles a las 14:00", "el jueves a las 18:30", "el sábado a las 10:00"],
+        errContacto: "Mmm, eso no parece un teléfono ni un mail. ¿Me lo pasás de nuevo?",
+        errOpcion: "Elegí una de las opciones, así la recepción lo tiene claro.",
+        resumen: d => "Listo, " + d.nombre.split(" ")[0] + ". Este es el resumen de tu solicitud:\n" +
+          "• " + d.tipoTxt + "\n• Zona: " + d.motivoTxt + "\n• Preferencia: " + d.preferenciaTxt + "\n• Contacto: " + d.contacto,
+        aviso: "Importante: esto es una solicitud, todavía no es un turno confirmado. Recepción te escribe hoy para ofrecerte un horario.",
+        mensaje: s => "Hola " + s.nombre.split(" ")[0] + ", gracias por escribirnos a Fysio Centrum Kralingen. " +
+          "Tenemos lugar " + s.sugerencia + " para " + (s.tipo === 0 ? "tu primera consulta" : "tu próxima sesión") +
+          " (" + s.motivoTxt.toLowerCase() + "). ¿Te queda bien? Respondé este mensaje para confirmar. Saludos, recepción.",
+        ph: { pregunta: "Escribí tu pregunta…", respuesta: "Escribí tu respuesta…", opcion: "Elegí una opción…" },
+        b: { una: "solicitud", varias: "solicitudes", nueva: "Nueva", contactada: "Contactada", recibida: "Recibida",
+             contacto: "Contacto", tipo: "Tipo", zona: "Zona", prefiere: "Prefiere", listo: "Mensaje listo para enviar",
+             copiar: "Copiar mensaje", copiado: "¡Copiado!", marcar: "Marcar como contactada" }
+      }
+    };
+
+    // Palabras clave en los dos idiomas: la primera regla que coincide gana
     const REGLAS = [
-      { tema: "turno",       claves: ["turno", "cita", "reserv", "agendar", "pedir hora", "afspraak"] },
-      { tema: "diagnostico", claves: ["duele", "dolor", "que tengo", "lesion", "diagnost", "esta roto", "inflam"] },
-      { tema: "horarios",    claves: ["horario", "hora", "abren", "abierto", "cierran", "sabado", "domingo"] },
-      { tema: "direccion",   claves: ["donde", "direccion", "llegar", "ubicad", "estacion", "metro", "parking"] },
-      { tema: "derivacion",  claves: ["derivacion", "derivar", "medico", "huisarts", "orden", "receta"] },
-      { tema: "seguro",      claves: ["seguro", "cubre", "verzeker", "reintegro", "poliza"] },
-      { tema: "cancelar",    claves: ["cancel", "no puedo ir", "cambiar el turno", "reprogram"] },
-      { tema: "llevar",      claves: ["llevar", "traer", "ropa", "toalla", "dura", "primera vez", "primera consulta"] },
-      { tema: "precios",     claves: ["precio", "cuesta", "cuanto sale", "tarifa", "cobran", "pagar"] }
+      { tema: "turno",       claves: ["turno", "cita", "reserv", "agendar", "appointment", "book", "schedule", "afspraak"] },
+      { tema: "diagnostico", claves: ["duele", "dolor", "que tengo", "lesion", "diagnos", "inflam", "hurt", "pain", "injur", "what do i have", "swollen"] },
+      { tema: "horarios",    claves: ["horario", "abren", "abierto", "cierran", "sabado", "domingo", "opening", "open", "closing", "hours", "saturday", "sunday"] },
+      { tema: "direccion",   claves: ["donde", "direccion", "llegar", "ubicad", "metro", "parking", "estacion", "where", "address", "location", "get there"] },
+      { tema: "derivacion",  claves: ["derivacion", "derivar", "medico", "huisarts", "receta", "referral", "doctor", "gp"] },
+      { tema: "seguro",      claves: ["seguro", "cubre", "verzeker", "reintegro", "poliza", "insurance", "cover", "reimburs"] },
+      { tema: "cancelar",    claves: ["cancel", "no puedo ir", "reprogram", "reschedul", "can't come", "cannot come"] },
+      { tema: "llevar",      claves: ["llevar", "traer", "ropa", "toalla", "dura", "primera vez", "primera consulta", "bring", "wear", "towel", "how long", "first visit", "first time"] },
+      { tema: "precios",     claves: ["precio", "cuesta", "cuanto sale", "tarifa", "cobran", "pagar", "price", "cost", "how much", "fee", "pay"] }
     ];
 
-    // Preguntas que aparecen como botones rápidos
-    const PREGUNTAS_RAPIDAS = [
-      ["¿Qué horarios tienen?", "horarios"],
-      ["¿Necesito derivación médica?", "derivacion"],
-      ["¿Lo cubre mi seguro?", "seguro"],
-      ["¿Cómo cancelo un turno?", "cancelar"],
-      ["Me duele la rodilla, ¿qué tengo?", "diagnostico"],
-      ["Quiero pedir un turno", "turno"]
-    ];
-
-    // ---------- 3. Pasos para pedir un turno ----------
+    // Pasos para pedir un turno
     const PASOS_TURNO = [
-      { campo: "nombre", pregunta: "¡Dale! ¿Cómo te llamás? (nombre y apellido)" },
-      { campo: "contacto", pregunta: "¿A qué teléfono o mail te escribimos?",
-        validar: v => v.includes("@") || v.replace(/\D/g, "").length >= 9,
-        error: "Mmm, eso no parece un teléfono ni un mail. ¿Me lo pasás de nuevo?" },
-      { campo: "tipo", pregunta: "¿Ya viniste antes al consultorio?",
-        opciones: ["Paciente nuevo", "Ya soy paciente"] },
-      { campo: "motivo", pregunta: "¿Para qué zona es la consulta? Elegí una opción general. No hace falta que me cuentes detalles médicos.",
-        opciones: ["Espalda o cuello", "Rodilla o tobillo", "Hombro o brazo", "Recuperación después de una operación", "Otro"] },
-      { campo: "preferencia", pregunta: "¿Cuándo te queda mejor?",
-        opciones: ["Mañanas (8 a 12)", "Tardes (12 a 17)", "Noches (17 a 20)", "Sábado a la mañana"] }
+      { campo: "nombre" },
+      { campo: "contacto", validar: v => v.includes("@") || v.replace(/\D/g, "").length >= 9 },
+      { campo: "tipo", opciones: true },
+      { campo: "motivo", opciones: true },
+      { campo: "preferencia", opciones: true }
     ];
 
-    // Horario que la recepción podría ofrecer según la preferencia (solo una sugerencia)
-    const SUGERENCIA = {
-      "Mañanas (8 a 12)": "el martes a las 9:30",
-      "Tardes (12 a 17)": "el miércoles a las 14:00",
-      "Noches (17 a 20)": "el jueves a las 18:30",
-      "Sábado a la mañana": "el sábado a las 10:00"
-    };
-
-    // Solicitudes de ejemplo que ya están en la bandeja
+    // Solicitudes de ejemplo (las opciones se guardan como número de opción)
     const EJEMPLOS = [
-      { nombre: "Sanne de Vries", contacto: "06 1234 5678", tipo: "Ya soy paciente",
-        motivo: "Rodilla o tobillo", preferencia: "Tardes (12 a 17)", estado: "contactada", hora: "09:12" },
-      { nombre: "Mark Jansen", contacto: "mark.jansen@ejemplo.nl", tipo: "Paciente nuevo",
-        motivo: "Espalda o cuello", preferencia: "Mañanas (8 a 12)", estado: "nueva", hora: "10:47" }
+      { nombre: "Sanne de Vries", contacto: "06 1234 5678", tipo: 1, motivo: 1, preferencia: 1, estado: "contactada", hora: "09:12" },
+      { nombre: "Mark Jansen", contacto: "mark.jansen@example.nl", tipo: 0, motivo: 0, preferencia: 0, estado: "nueva", hora: "10:47" }
     ];
 
-    // ---------- 4. Elementos de la página ----------
+    /* =====================================================
+       3. CAMBIO DE IDIOMA
+       ===================================================== */
+    let idioma = "en";
+    const ORIGINAL_EN = {};   // guarda el inglés que está en el HTML
+
+    // Elige el idioma: 1) ?lang=es en el link  2) el que eligió antes  3) el del navegador
+    function idiomaInicial() {
+      const delLink = new URLSearchParams(location.search).get("lang");
+      if (delLink && TEXTOS[delLink] || delLink === "en") return delLink;
+      try {
+        const guardado = localStorage.getItem("flowpilot-idioma");
+        if (guardado === "en" || guardado === "es") return guardado;
+      } catch (e) { /* si el navegador no deja guardar, seguimos igual */ }
+      const delNavegador = (navigator.languages || [navigator.language || "en"]);
+      return delNavegador.some(l => l.toLowerCase().startsWith("es")) ? "es" : "en";
+    }
+
+    function aplicarIdioma(nuevo) {
+      idioma = nuevo;
+      document.documentElement.lang = nuevo;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const clave = el.dataset.i18n;
+        if (!(clave in ORIGINAL_EN)) ORIGINAL_EN[clave] = el.innerHTML;
+        const texto = nuevo === "en" ? ORIGINAL_EN[clave] : TEXTOS[nuevo][clave];
+        if (texto !== undefined) el.innerHTML = texto;
+      });
+
+      document.querySelectorAll(".idiomas button").forEach(b => {
+        b.setAttribute("aria-pressed", b.dataset.lang === nuevo ? "true" : "false");
+      });
+
+      try { localStorage.setItem("flowpilot-idioma", nuevo); } catch (e) { /* nada */ }
+
+      actualizarWhatsApp();
+      iniciarDemo();   // la demo arranca de nuevo en el idioma elegido
+    }
+
+    // Pone el link de WhatsApp en todos los botones de reunión
+    function actualizarWhatsApp() {
+      if (WHATSAPP.includes("X")) return;   // todavía es el placeholder
+      document.querySelectorAll(".cta-reunion").forEach(boton => {
+        boton.href = WHATSAPP + "?text=" + encodeURIComponent(MENSAJE_WHATSAPP[idioma]);
+        boton.target = "_blank";
+        boton.rel = "noopener";
+      });
+    }
+
+    document.querySelectorAll(".idiomas button").forEach(b => {
+      b.addEventListener("click", () => aplicarIdioma(b.dataset.lang));
+    });
+
+    /* =====================================================
+       4. LA DEMO
+       ===================================================== */
     const chat = document.getElementById("chat-mensajes");
-    const opciones = document.getElementById("chat-opciones");
+    const opcionesEl = document.getElementById("chat-opciones");
     const form = document.getElementById("chat-form");
     const input = document.getElementById("chat-input");
     const bandeja = document.getElementById("bandeja");
     const contador = document.getElementById("bandeja-contador");
 
-    // Estado de la conversación
     let pasoActual = -1;   // -1 = modo preguntas; 0 o más = pidiendo turno
     let datos = {};
     let cantidad = 0;
+    let turnoDemo = 0;     // evita que respuestas viejas aparezcan al reiniciar
 
-    // ---------- 5. Funciones del chat ----------
+    const D = () => DEMO[idioma];
 
     // Saca tildes y pasa a minúsculas, para comparar palabras
     function normalizar(texto) {
@@ -774,95 +1102,93 @@
 
     // El asistente responde con una pequeña pausa, como en un chat real
     function responder(texto, tipo = "bot", despues) {
+      const miTurno = turnoDemo;
       setTimeout(() => {
+        if (miTurno !== turnoDemo) return;   // la demo se reinició mientras tanto
         agregarMensaje(texto, tipo);
         if (despues) despues();
       }, 450);
     }
 
-    // Muestra botones de respuesta rápida
+    // Botones de respuesta rápida: cada uno es [texto, valor]
     function mostrarOpciones(lista) {
-      opciones.innerHTML = "";
+      opcionesEl.innerHTML = "";
       lista.forEach(([texto, valor]) => {
         const boton = document.createElement("button");
         boton.type = "button";
         boton.className = "chip";
         boton.textContent = texto;
         boton.addEventListener("click", () => recibir(texto, valor));
-        opciones.appendChild(boton);
+        opcionesEl.appendChild(boton);
       });
     }
 
     function mostrarPreguntasRapidas() {
-      input.placeholder = "Escribí tu pregunta…";
-      mostrarOpciones(PREGUNTAS_RAPIDAS);
+      input.placeholder = D().ph.pregunta;
+      mostrarOpciones(D().rapidas);
     }
 
-    // Busca de qué tema habla el mensaje
     function detectarTema(texto) {
       const limpio = normalizar(texto);
       const regla = REGLAS.find(r => r.claves.some(clave => limpio.includes(clave)));
       return regla ? regla.tema : "noSe";
     }
 
-    // Punto de entrada: todo lo que manda el paciente pasa por acá
-    function recibir(texto, temaElegido) {
+    // Todo lo que manda el paciente pasa por acá
+    function recibir(texto, valor) {
       texto = texto.trim();
       if (!texto) return;
       agregarMensaje(texto, "paciente");
-      opciones.innerHTML = "";
+      opcionesEl.innerHTML = "";
 
       if (pasoActual >= 0) {
-        seguirTurno(texto);
+        seguirTurno(texto, valor);
         return;
       }
-
-      const tema = temaElegido || detectarTema(texto);
+      const tema = valor || detectarTema(texto);
       if (tema === "turno") {
-        empezarTurno();
+        pasoActual = 0;
+        datos = {};
+        preguntarPaso();
       } else {
-        responder(INFO[tema], "bot", mostrarPreguntasRapidas);
+        responder(D().info[tema], "bot", mostrarPreguntasRapidas);
       }
-    }
-
-    // ---------- 6. Flujo para pedir turno ----------
-    function empezarTurno() {
-      pasoActual = 0;
-      datos = {};
-      preguntarPaso();
     }
 
     function preguntarPaso() {
       const paso = PASOS_TURNO[pasoActual];
-      responder(paso.pregunta, "bot", () => {
+      responder(D().preguntas[paso.campo], "bot", () => {
         if (paso.opciones) {
-          input.placeholder = "Elegí una opción…";
-          mostrarOpciones(paso.opciones.map(o => [o, null]));
+          input.placeholder = D().ph.opcion;
+          mostrarOpciones(D().opciones[paso.campo].map((texto, i) => [texto, i]));
         } else {
-          input.placeholder = "Escribí tu respuesta…";
+          input.placeholder = D().ph.respuesta;
           input.focus({ preventScroll: true });
         }
       });
     }
 
-    function seguirTurno(respuesta) {
+    function seguirTurno(respuesta, valor) {
       const paso = PASOS_TURNO[pasoActual];
 
-      // Si el paso tiene validación y no pasa, vuelve a preguntar
       if (paso.validar && !paso.validar(respuesta)) {
-        responder(paso.error);
+        responder(D().errContacto);
         return;
       }
-      // Si el paso es de opciones, solo acepta una de ellas
-      if (paso.opciones && !paso.opciones.includes(respuesta)) {
-        responder("Elegí una de las opciones, así la recepción lo tiene claro.", "bot",
-          () => mostrarOpciones(paso.opciones.map(o => [o, null])));
-        return;
+      if (paso.opciones) {
+        // Acepta el botón tocado o el texto exacto de una opción
+        const lista = D().opciones[paso.campo];
+        const indice = typeof valor === "number" ? valor : lista.indexOf(respuesta);
+        if (indice < 0) {
+          responder(D().errOpcion, "bot", () => mostrarOpciones(lista.map((t, i) => [t, i])));
+          return;
+        }
+        datos[paso.campo] = indice;
+      } else {
+        datos[paso.campo] = respuesta;
       }
 
-      datos[paso.campo] = respuesta;
       pasoActual++;
-
       if (pasoActual < PASOS_TURNO.length) {
         preguntarPaso();
       } else {
@@ -870,58 +1196,55 @@
       }
     }
 
-    function terminarTurno() {
-      pasoActual = -1;
-      const resumen =
-        "Listo, " + datos.nombre.split(" ")[0] + ". Este es el resumen de tu solicitud:\n" +
-        "• " + datos.tipo + "\n" +
-        "• Zona: " + datos.motivo + "\n" +
-        "• Preferencia: " + datos.preferencia + "\n" +
-        "• Contacto: " + datos.contacto;
-      responder(resumen, "bot", () => {
-        responder("Importante: esto es una solicitud, todavía no es un turno confirmado. Recepción te escribe hoy para ofrecerte un horario.",
-          "aviso-turno", () => {
-            datos.estado = "nueva";
-            datos.hora = new Date().toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false });
-            agregarSolicitud(datos, true);
-            mostrarPreguntasRapidas();
-          });
+    // Agrega los textos de las opciones según el idioma actual
+    function conTextos(s) {
+      const o = D().opciones;
+      return Object.assign({}, s, {
+        tipoTxt: o.tipo[s.tipo],
+        motivoTxt: o.motivo[s.motivo],
+        preferenciaTxt: o.preferencia[s.preferencia],
+        sugerencia: D().sugerencias[s.preferencia]
       });
     }
 
-    // ---------- 7. Bandeja de recepción ----------
-
-    // Arma el mensaje que la recepción revisa y envía
-    function armarMensaje(s) {
-      const nombre = s.nombre.split(" ")[0];
-      const consulta = s.tipo === "Paciente nuevo" ? "tu primera consulta" : "tu próxima sesión";
-      return "Hola " + nombre + ", gracias por escribirnos a Fysio Centrum Kralingen. " +
-        "Tenemos lugar " + SUGERENCIA[s.preferencia] + " para " + consulta +
-        " (" + s.motivo.toLowerCase() + "). ¿Te queda bien? Respondé este mensaje para confirmar. " +
-        "Saludos, recepción.";
+    function terminarTurno() {
+      pasoActual = -1;
+      const completo = conTextos(datos);
+      responder(D().resumen(completo), "bot", () => {
+        responder(D().aviso, "aviso-turno", () => {
+          datos.estado = "nueva";
+          datos.hora = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+          agregarSolicitud(datos, true);
+          mostrarPreguntasRapidas();
+        });
+      });
     }
 
-    function agregarSolicitud(s, esNueva) {
+    function actualizarContador() {
+      contador.textContent = cantidad + " " + (cantidad === 1 ? D().b.una : D().b.varias);
+    }
+
+    function agregarSolicitud(datosSolicitud, esNueva) {
+      const s = conTextos(datosSolicitud);
+      const b = D().b;
       cantidad++;
-      contador.textContent = cantidad + (cantidad === 1 ? " solicitud" : " solicitudes");
+      actualizarContador();
 
       const tarjeta = document.createElement("article");
       tarjeta.className = "solicitud" + (esNueva ? " recien" : "");
 
-      // Parte de arriba: nombre + estado
       const arriba = document.createElement("div");
       arriba.className = "solicitud-arriba";
       const nombre = document.createElement("strong");
       nombre.textContent = s.nombre;
       const estado = document.createElement("span");
       estado.className = "estado " + s.estado;
-      estado.textContent = s.estado === "nueva" ? "Nueva" : "Contactada";
+      estado.textContent = s.estado === "nueva" ? b.nueva : b.contactada;
       arriba.append(nombre, estado);
 
-      // Datos de la solicitud
       const lista = document.createElement("dl");
-      [["Recibida", s.hora], ["Contacto", s.contacto], ["Tipo", s.tipo],
-       ["Zona", s.motivo], ["Prefiere", s.preferencia]].forEach(([etiqueta, valor]) => {
+      [[b.recibida, s.hora], [b.contacto, s.contacto], [b.tipo, s.tipoTxt],
+       [b.zona, s.motivoTxt], [b.prefiere, s.preferenciaTxt]].forEach(([etiqueta, valor]) => {
         const dt = document.createElement("dt");
         dt.textContent = etiqueta;
         const dd = document.createElement("dd");
@@ -929,31 +1252,30 @@
         lista.append(dt, dd);
       });
 
-      // Mensaje listo para enviar (se puede editar)
       const detalle = document.createElement("details");
       detalle.open = esNueva;
       const titulo = document.createElement("summary");
-      titulo.textContent = "Mensaje listo para enviar";
+      titulo.textContent = b.listo;
       const texto = document.createElement("textarea");
       texto.rows = 5;
-      texto.value = armarMensaje(s);
+      texto.value = D().mensaje(s);
 
       const botones = document.createElement("div");
       botones.className = "solicitud-botones";
       const copiar = document.createElement("button");
       copiar.type = "button";
       copiar.className = "chico";
-      copiar.textContent = "Copiar mensaje";
-      copiar.addEventListener("click", () => copiarTexto(texto, copiar));
+      copiar.textContent = b.copiar;
+      copiar.addEventListener("click", () => copiarTexto(texto, copiar, b));
 
       const marcar = document.createElement("button");
       marcar.type = "button";
       marcar.className = "chico";
-      marcar.textContent = "Marcar como contactada";
+      marcar.textContent = b.marcar;
       marcar.hidden = s.estado !== "nueva";
       marcar.addEventListener("click", () => {
         estado.className = "estado contactada";
-        estado.textContent = "Contactada";
+        estado.textContent = b.contactada;
         tarjeta.classList.remove("recien");
         marcar.hidden = true;
       });
@@ -962,16 +1284,15 @@
       detalle.append(titulo, texto, botones);
       tarjeta.append(arriba, lista, detalle);
 
-      // Las nuevas van arriba de todo
-      bandeja.prepend(tarjeta);
+      bandeja.prepend(tarjeta);   // las nuevas van arriba
       if (esNueva) bandeja.scrollTop = 0;
     }
 
     // Copia el mensaje al portapapeles (con plan B para navegadores viejos)
-    function copiarTexto(textarea, boton) {
+    function copiarTexto(textarea, boton, b) {
       const avisar = () => {
-        boton.textContent = "¡Copiado!";
-        setTimeout(() => (boton.textContent = "Copiar mensaje"), 1500);
+        boton.textContent = b.copiado;
+        setTimeout(() => (boton.textContent = b.copiar), 1500);
       };
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(textarea.value).then(avisar).catch(() => {
@@ -982,15 +1303,15 @@
       }
     }
 
-    // ---------- 8. Arranque y reinicio ----------
     function iniciarDemo() {
+      turnoDemo++;
       chat.innerHTML = "";
       bandeja.innerHTML = "";
       cantidad = 0;
       pasoActual = -1;
       datos = {};
       EJEMPLOS.forEach(e => agregarSolicitud(e, false));
-      agregarMensaje("¡Hola! Soy el asistente de Fysio Centrum Kralingen. Respondo solo con la información que aprobó el consultorio. ¿En qué te ayudo?", "bot");
+      agregarMensaje(D().hola, "bot");
       mostrarPreguntasRapidas();
     }
 
@@ -1003,7 +1324,10 @@
 
     document.getElementById("demo-reiniciar").addEventListener("click", iniciarDemo);
 
-    iniciarDemo();
+    /* =====================================================
+       5. ARRANQUE
+       ===================================================== */
+    aplicarIdioma(idiomaInicial());
   </script>
 
 </body>
