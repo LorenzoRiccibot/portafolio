@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FlowPilot AI · Lorenzo</title>
+
+  <!-- Vista previa cuando mandás el link por WhatsApp, LinkedIn o mail -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FlowPilot AI · Lorenzo">
+  <meta property="og:description" content="An AI assistant for your website: answers common questions and organizes appointment requests. · Un asistente con IA para tu web.">
+  <meta property="og:url" content="https://lorenzoriccibot.github.io/portafolio/">
+  <meta name="theme-color" content="#12355b">
+
+  <!-- Ícono de la pestaña (dibujado acá mismo, sin archivo aparte) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312355b'/%3E%3Cpath d='M18 46V18h26v7H26v5h15v7H26v9z' fill='%23ffffff'/%3E%3Ccircle cx='47' cy='43' r='5' fill='%231f9e89'/%3E%3C/svg%3E">
   <meta name="description" content="AI assistants for small service businesses: answer common questions and organize appointment and quote requests. 100% remote. · Asistentes con IA para negocios de servicios.">
 
   <style>
@@ -470,6 +480,149 @@
       cursor: pointer;
     }
     .idiomas button[aria-pressed="true"] { background: var(--azul); color: #fff; }
+
+    /* ===================================================
+       PULIDO (reto 9): detalles para compu y celular
+       =================================================== */
+
+    /* Que el menú fijo no tape el título al saltar a una sección */
+    section { scroll-margin-top: 70px; }
+
+    /* Quien prefiere menos movimiento no ve el scroll animado */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    /* Contorno visible al navegar con teclado */
+    a:focus-visible, button:focus-visible, input:focus-visible,
+    textarea:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--acento);
+      outline-offset: 2px;
+    }
+
+    /* Botones con un leve movimiento al pasar el mouse */
+    .boton { box-shadow: 0 6px 16px rgba(31, 158, 137, 0.22); transition: background 0.2s, transform 0.2s; }
+    .boton:hover { transform: translateY(-1px); }
+    .boton-borde { box-shadow: none; }
+
+    /* Tarjetas con sombra suave */
+    .tarjeta, .pasos li, .demo-col, .pone-cliente, details {
+      box-shadow: 0 1px 2px rgba(18, 53, 91, 0.04), 0 4px 14px rgba(18, 53, 91, 0.05);
+    }
+
+    /* Preguntas frecuentes: flecha propia que gira al abrir */
+    summary { list-style: none; position: relative; padding-right: 28px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: -2px;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--acento);
+      transition: transform 0.2s;
+    }
+    details[open] > summary::after { transform: rotate(45deg); }
+    .solicitud summary { padding-right: 0; }
+    .solicitud summary::after { content: none; }
+
+    /* ---------- Presentación en dos columnas (compu) ---------- */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    #presentacion { padding-top: 64px; }
+    #presentacion h1 { font-size: 2.35rem; }
+
+    /* Vista previa decorativa del asistente */
+    .vista-previa {
+      display: block;
+      text-decoration: none;
+      color: var(--texto);
+      background: linear-gradient(160deg, #e8f6f3 0%, #eef3f8 100%);
+      border-radius: 22px;
+      padding: 22px;
+      transform: rotate(1.5deg);
+      transition: transform 0.25s;
+    }
+    .vista-previa:hover { transform: rotate(0deg) translateY(-3px); }
+    .vp-chat, .vp-solicitud {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(18, 53, 91, 0.10);
+    }
+    .vp-titulo { font-weight: 700; color: var(--azul); font-size: 0.85rem; }
+    .vp-burbuja { padding: 8px 12px; border-radius: 12px; font-size: 0.88rem; max-width: 88%; }
+    .vp-paciente { align-self: flex-end; background: var(--acento); color: #fff; }
+    .vp-bot { align-self: flex-start; background: #f3f6f8; }
+    .vp-solicitud {
+      margin: -8px 0 0 28px;
+      position: relative;
+      border: 2px solid var(--acento);
+      font-size: 0.88rem;
+    }
+    .vp-fila { display: flex; justify-content: space-between; align-items: center; }
+    .vp-detalle { color: var(--gris); }
+    .vp-listo { color: var(--acento-oscuro); font-weight: 700; }
+    .vp-ver {
+      display: block;
+      text-align: center;
+      margin-top: 14px;
+      font-weight: 700;
+      color: var(--acento-oscuro);
+      font-size: 0.92rem;
+    }
+
+    /* ---------- Botón flotante (solo celular) ---------- */
+    .cta-flotante { display: none; }
+
+    /* ---------- Ajustes de celular ---------- */
+    @media (max-width: 760px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .vista-previa { display: none; }              /* en celular, la oferta primero */
+      #presentacion { padding-top: 36px; }
+      #presentacion h1 { font-size: 1.6rem; }
+
+      /* Pasos más compactos: número a la izquierda, texto a la derecha */
+      .pasos li {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        column-gap: 14px;
+        padding: 16px;
+      }
+      .pasos .numero { grid-row: span 2; margin-bottom: 0; }
+
+      /* Botones de la demo más fáciles de tocar con el dedo */
+      .chip { padding: 9px 14px; font-size: 0.92rem; }
+      .chico { padding: 9px 12px; }
+
+      /* Evita que el iPhone haga zoom al tocar un campo de texto */
+      .chat-form input, .solicitud textarea { font-size: 16px; }
+
+      /* Botón flotante abajo */
+      .cta-flotante {
+        display: block;
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        bottom: 14px;
+        z-index: 20;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(120%);
+        pointer-events: none;
+        transition: opacity 0.25s, transform 0.25s;
+      }
+      .cta-flotante.visible { opacity: 1; transform: none; pointer-events: auto; }
+      footer { padding-bottom: 90px; }
+    }
   </style>
 </head>
 
@@ -516,12 +669,33 @@
          Objeción que mata: "¿Qué hacés vos, exactamente?"
          =================================================== -->
     <section id="presentacion">
-      <div class="contenedor">
-        <span class="etiqueta" data-i18n="hero_tag">For clinics and service professionals · 100% remote</span>
-        <h1 data-i18n="hero_h1">An assistant on your website that answers the same questions every day and keeps your appointment and quote requests organized.</h1>
-        <p data-i18n="hero_p">It only answers with information you approve, in your clients' language. You confirm the appointments. Up and running in 2 weeks.</p>
-        <a href="#reunion" class="boton cta-reunion" data-i18n="cta_hero">Book a 20-minute call</a>
-        <p class="firma" data-i18n="hero_sig">I'm Lorenzo. I build it and fine-tune it with you, wherever you are.</p>
+      <div class="contenedor hero-grid">
+        <div>
+          <span class="etiqueta" data-i18n="hero_tag">For clinics and service professionals · 100% remote</span>
+          <h1 data-i18n="hero_h1">An assistant on your website that answers the same questions every day and keeps your appointment and quote requests organized.</h1>
+          <p data-i18n="hero_p">It only answers with information you approve, in your clients' language. You confirm the appointments. Up and running in 2 weeks.</p>
+          <a href="#reunion" class="boton cta-reunion" data-i18n="cta_hero">Book a 20-minute call</a>
+          <p class="firma" data-i18n="hero_sig">I'm Lorenzo. I build it and fine-tune it with you, wherever you are.</p>
+        </div>
+
+        <!-- Vista previa decorativa (solo compu): muestra la idea de un vistazo.
+             Al tocarla, lleva a la demo de verdad. -->
+        <a href="#demo" class="vista-previa" aria-label="Demo">
+          <div class="vp-chat">
+            <span class="vp-titulo">Fysio Centrum Kralingen</span>
+            <span class="vp-burbuja vp-paciente" data-i18n="prev_q">What are your opening hours?</span>
+            <span class="vp-burbuja vp-bot" data-i18n="prev_a">Monday to Friday, 8:00 to 20:00, and Saturdays until 13:00.</span>
+          </div>
+          <div class="vp-solicitud">
+            <div class="vp-fila">
+              <strong>Ana Pérez</strong>
+              <span class="estado nueva" data-i18n="prev_new">New</span>
+            </div>
+            <span class="vp-detalle" data-i18n="prev_detail">Back or neck · Evenings</span>
+            <span class="vp-listo" data-i18n="prev_ready">✓ Message ready to send</span>
+          </div>
+          <span class="vp-ver" data-i18n="prev_cta">Try the demo ↓</span>
+        </a>
       </div>
     </section>
 
@@ -778,6 +952,9 @@
 
   </main>
 
+  <!-- Botón flotante (solo celular): aparece cuando ya pasaste la presentación -->
+  <a href="#reunion" class="boton cta-reunion cta-flotante" data-i18n="cta_float" aria-hidden="true" tabindex="-1">Book 20 minutes</a>
+
   <footer data-i18n="footer">
     © 2026 FlowPilot AI · Lorenzo · 100% remote
   </footer>
@@ -810,6 +987,13 @@
         hero_p: "Responde solo con la información que vos aprobás, en el idioma de tus clientes. Los turnos los confirmás vos. Lo tenés andando en 2 semanas.",
         cta_hero: "Agendá una reunión de 20 minutos",
         hero_sig: "Soy Lorenzo. Lo armo y lo ajusto con vos, estés donde estés.",
+        prev_q: "¿Qué horarios tienen?",
+        prev_a: "De lunes a viernes de 8:00 a 20:00, y los sábados hasta las 13:00.",
+        prev_new: "Nueva",
+        prev_detail: "Espalda o cuello · Noches",
+        prev_ready: "✓ Mensaje listo para enviar",
+        prev_cta: "Probá la demo ↓",
+        cta_float: "Agendá 20 minutos",
 
         who_tag: "Para quién es",
         who_h2: "¿Es para un negocio como el tuyo?",
@@ -1345,6 +1529,31 @@
        5. ARRANQUE
        ===================================================== */
     aplicarIdioma(idiomaInicial());
+  </script>
+
+  <script>
+    /* =====================================================
+       BOTÓN FLOTANTE DEL CELULAR
+       Se muestra solo cuando no se ve la presentación, ni la demo,
+       ni la sección final de reunión (para no tapar nada).
+       No toca la lógica de la demo.
+       ===================================================== */
+    (function () {
+      const flotante = document.querySelector(".cta-flotante");
+      if (!flotante || !("IntersectionObserver" in window)) return;
+      const visibles = new Set();
+      const observador = new IntersectionObserver(entradas => {
+        entradas.forEach(e => e.isIntersecting ? visibles.add(e.target.id) : visibles.delete(e.target.id));
+        const mostrar = visibles.size === 0;
+        flotante.classList.toggle("visible", mostrar);
+        flotante.setAttribute("aria-hidden", mostrar ? "false" : "true");
+        flotante.tabIndex = mostrar ? 0 : -1;
+      }, { rootMargin: "-90px 0px -90px 0px" });   // ignora pedacitos de sección en los bordes
+      ["presentacion", "demo", "reunion"].forEach(id => {
+        const seccion = document.getElementById(id);
+        if (seccion) observador.observe(seccion);
+      });
+    })();
   </script>
 
 </body>
