@@ -580,6 +580,73 @@
       font-size: 0.92rem;
     }
 
+    /* ---------- Datos rápidos debajo del botón de la presentación ---------- */
+    .datos-rapidos {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .datos-rapidos li {
+      background: var(--fondo-suave);
+      border: 1px solid var(--borde);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.88rem;
+      color: var(--azul);
+      font-weight: 600;
+    }
+
+    /* ---------- Link secundario a la demo ---------- */
+    .link-demo {
+      display: inline-block;
+      margin: 14px 0 0 18px;
+      color: var(--acento-oscuro);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- Por qué confiar ---------- */
+    .confianza {
+      margin-top: 28px;
+      background: var(--fondo);
+      border: 1px solid var(--borde);
+      border-left: 5px solid var(--acento);
+      border-radius: var(--radio);
+      padding: 22px 24px;
+      box-shadow: 0 1px 2px rgba(18, 53, 91, 0.04), 0 4px 14px rgba(18, 53, 91, 0.05);
+    }
+    .confianza > p { color: var(--gris); margin-top: 4px; }
+    .confianza-lista { list-style: none; margin-top: 12px; display: grid; gap: 10px; }
+    .confianza-lista li { padding-left: 28px; position: relative; }
+    .confianza-lista li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--acento);
+      font-weight: 800;
+    }
+
+    /* ---------- Qué gana tu negocio ---------- */
+    .gana-titulo { margin-top: 36px; font-size: 1.3rem; }
+    .gana {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .gana-item {
+      background: var(--fondo);
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
+      padding: 20px;
+      box-shadow: 0 1px 2px rgba(18, 53, 91, 0.04), 0 4px 14px rgba(18, 53, 91, 0.05);
+    }
+    .gana-icono { font-size: 1.5rem; display: block; margin-bottom: 6px; }
+    .gana-item p { color: var(--gris); font-size: 0.95rem; }
+
     /* ---------- Botón flotante (solo celular) ---------- */
     .cta-flotante { display: none; }
 
@@ -588,6 +655,9 @@
       .hero-grid { grid-template-columns: 1fr; }
       .vista-previa { display: none; }              /* en celular, la oferta primero */
       #presentacion { padding-top: 36px; }
+      .gana { grid-template-columns: 1fr; }
+      .link-demo { display: block; text-align: center; margin: 12px 0 0; }
+      .datos-rapidos li { font-size: 0.85rem; }
       #presentacion h1 { font-size: 1.6rem; }
 
       /* Pasos más compactos: número a la izquierda, texto a la derecha */
@@ -675,6 +745,15 @@
           <h1 data-i18n="hero_h1">An assistant on your website that answers the same questions every day and keeps your appointment and quote requests organized.</h1>
           <p data-i18n="hero_p">It only answers with information you approve, in your clients' language. You confirm the appointments. Up and running in 2 weeks.</p>
           <a href="#reunion" class="boton cta-reunion" data-i18n="cta_hero">Book a 20-minute call</a>
+          <a href="#demo" class="link-demo" data-i18n="hero_demo">or try the demo first, it takes 2 minutes ↓</a>
+
+          <!-- Datos rápidos (ajuste reto 9: "no sé cuánto tiempo tengo que esperar ni cuánto cobrás") -->
+          <ul class="datos-rapidos">
+            <li data-i18n="fact_1">⏱ Usually ready in 14 days</li>
+            <li data-i18n="fact_2">💬 You get the price in the 20-minute call, fixed and in writing</li>
+            <li data-i18n="fact_3">✓ No commitment</li>
+          </ul>
+
           <p class="firma" data-i18n="hero_sig">I'm Lorenzo. I build it and fine-tune it with you, wherever you are.</p>
         </div>
 
@@ -723,6 +802,26 @@
               <li data-i18n="no_2">You want AI to confirm appointments or give diagnoses on its own.</li>
               <li data-i18n="no_3">Nobody on your team can review the requests that come in.</li>
             </ul>
+          </div>
+        </div>
+
+        <!-- Qué gana tu negocio (ajuste reto 9: "no sé qué solución me das para que mi negocio crezca") -->
+        <h3 class="gana-titulo" data-i18n="gain_h">What your business gains</h3>
+        <div class="gana">
+          <div class="gana-item">
+            <span class="gana-icono" aria-hidden="true">📈</span>
+            <h3 data-i18n="g1_h">More appointments</h3>
+            <p data-i18n="g1_p">It answers instantly, even at night and on weekends, right when the client is deciding.</p>
+          </div>
+          <div class="gana-item">
+            <span class="gana-icono" aria-hidden="true">📋</span>
+            <h3 data-i18n="g2_h">No lost requests</h3>
+            <p data-i18n="g2_p">Every appointment or quote request is logged and organized. Nothing gets lost on a sticky note.</p>
+          </div>
+          <div class="gana-item">
+            <span class="gana-icono" aria-hidden="true">⏳</span>
+            <h3 data-i18n="g3_h">More time for your clients</h3>
+            <p data-i18n="g3_p">Your reception stops repeating the same answers and focuses on the people who are there.</p>
           </div>
         </div>
       </div>
@@ -776,6 +875,19 @@
         <div class="demo-acciones">
           <button id="demo-reiniciar" type="button" class="boton boton-borde" data-i18n="restart">Try again</button>
           <a href="#reunion" class="boton cta-reunion" data-i18n="demo_cta">Clear enough? Book 20 minutes and I'll build the version for your business</a>
+        </div>
+
+        <!-- Por qué confiar (ajuste reto 9: "no conozco tus servicios ni cuán efectivos son").
+             Sin testimonios inventados: cuando tengas clientes reales, sus frases van acá. -->
+        <div class="confianza">
+          <h3 data-i18n="trust_h">Don't know me yet? Fair enough.</h3>
+          <p data-i18n="trust_p">I'm starting out with my first clients, so I won't show you made-up testimonials. Here's what you get instead:</p>
+          <ul class="confianza-lista">
+            <li data-i18n="trust_1"><strong>You tried it yourself.</strong> The demo above works for real: that's exactly what your clients would see.</li>
+            <li data-i18n="trust_2"><strong>You see it with your business before paying anything.</strong> In the call I show it loaded with your own questions.</li>
+            <li data-i18n="trust_3"><strong>Everything in writing.</strong> What's included, what isn't, the date and the price, before we start.</li>
+            <li data-i18n="trust_4"><strong>You pay half to start and half when you see it working</strong> on your website.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -913,6 +1025,16 @@
           <summary data-i18n="q4">I'm not sure it works for my kind of business.</summary>
           <p data-i18n="a4">If people keep asking you the same questions and you get appointment or quote requests, it works. In the call I show you the demo with questions from your business, and if it's not for you, I'll tell you.</p>
         </details>
+        <!-- Extra (ajuste reto 9): crecimiento -->
+        <details>
+          <summary data-i18n="q9">Will this actually help my business grow?</summary>
+          <p data-i18n="a9">Yes, in a concrete way: it answers instantly, even outside opening hours, and no request gets lost. A client who writes at 10 p.m. and gets an answer books; one who doesn't goes somewhere else.</p>
+        </details>
+        <!-- Extra (ajuste reto 9): confianza -->
+        <details>
+          <summary data-i18n="q10">I don't know you. Why should I trust you?</summary>
+          <p data-i18n="a10">You don't have to take my word for it: try the <a href="#demo">demo</a> and then see it with your own questions in the call. You only pay half to start, and the other half when it's working on your website.</p>
+        </details>
         <!-- 5. La IA inventa -->
         <details>
           <summary data-i18n="q5">What if the AI makes things up?</summary>
@@ -987,6 +1109,27 @@
         hero_p: "Responde solo con la información que vos aprobás, en el idioma de tus clientes. Los turnos los confirmás vos. Lo tenés andando en 2 semanas.",
         cta_hero: "Agendá una reunión de 20 minutos",
         hero_sig: "Soy Lorenzo. Lo armo y lo ajusto con vos, estés donde estés.",
+        hero_demo: "o probá la demo primero, son 2 minutos ↓",
+        trust_h: "¿Todavía no me conocés? Es lógico.",
+        trust_p: "Estoy arrancando con mis primeros clientes, así que no te voy a mostrar testimonios inventados. Esto es lo que tenés en cambio:",
+        trust_1: "<strong>Lo probaste vos mismo.</strong> La demo de arriba funciona de verdad: es exactamente lo que verían tus clientes.",
+        trust_2: "<strong>Lo ves con tu negocio antes de pagar nada.</strong> En la reunión te lo muestro cargado con tus propias preguntas.",
+        trust_3: "<strong>Todo por escrito.</strong> Qué entra, qué no, la fecha y el precio, antes de arrancar.",
+        trust_4: "<strong>Pagás la mitad al arrancar y la otra mitad cuando lo ves funcionando</strong> en tu web.",
+        q10: "No te conozco: ¿por qué debería confiar?",
+        a10: "No tenés que creerme de palabra: probá la <a href=\"#demo\">demo</a> y después miralo con tus propias preguntas en la reunión. Pagás la mitad al arrancar y la otra mitad cuando funciona en tu web.",
+        fact_1: "⏱ Normalmente listo en 14 días",
+        fact_2: "💬 El precio te lo paso en la reunión de 20 minutos, cerrado y por escrito",
+        fact_3: "✓ Sin compromiso",
+        gain_h: "Qué gana tu negocio",
+        g1_h: "Más turnos",
+        g1_p: "Responde al instante, también de noche y el fin de semana, justo cuando el cliente está decidiendo.",
+        g2_h: "Ningún pedido perdido",
+        g2_p: "Cada pedido de turno o de presupuesto queda anotado y ordenado. Nada se pierde en un papelito.",
+        g3_h: "Más tiempo para atender",
+        g3_p: "Tu recepción deja de repetir lo mismo y se dedica a la gente que está ahí.",
+        q9: "¿Esto me ayuda de verdad a que mi negocio crezca?",
+        a9: "Sí, de una forma concreta: responde al instante, también fuera de horario, y no se pierde ningún pedido. Un cliente que escribe a las 22 y recibe respuesta, pide turno; uno que no, se va a otro lado.",
         prev_q: "¿Qué horarios tienen?",
         prev_a: "De lunes a viernes de 8:00 a 20:00, y los sábados hasta las 13:00.",
         prev_new: "Nueva",
