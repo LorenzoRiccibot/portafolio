@@ -316,10 +316,20 @@
     /* ===================================================
        4. CÓMO TRABAJO (pasos numerados)
        =================================================== */
+    .intro-pasos { color: var(--gris); max-width: 680px; }
+    .pasos li.destacado { border: 2px solid var(--acento); }
+    .pone-cliente {
+      margin-top: 24px;
+      background: var(--fondo);
+      border: 1px solid var(--borde);
+      border-left: 5px solid var(--azul);
+      border-radius: var(--radio);
+      padding: 22px 24px;
+    }
     .pasos {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       margin-top: 24px;
     }
@@ -539,13 +549,52 @@
     <section id="como-trabajo">
       <div class="contenedor">
         <span class="etiqueta">Cómo trabajo</span>
-        <h2>Funcionando en 2 semanas, sin que tengas que saber de tecnología.</h2>
+        <h2>Así sería trabajar conmigo, paso a paso.</h2>
+        <p class="intro-pasos">Primero ves la demo con tu negocio. Recién después, en una charla 1:1, hablamos de plata. Nunca al revés.</p>
+
+        <!-- Los 6 pasos, en orden. El precio nunca aparece en la web. -->
         <ol class="pasos">
-          <li><span class="numero">1</span><h3>Charlamos</h3><p>30 minutos para entender tu negocio.</p></li>
-          <li><span class="numero">2</span><h3>Aprobás</h3><p>Juntamos tus preguntas frecuentes y aprobás cada respuesta.</p></li>
-          <li><span class="numero">3</span><h3>Lo armo</h3><p>En 2 semanas lo tenés funcionando.</p></li>
-          <li><span class="numero">4</span><h3>Ajustamos</h3><p>Una semana más con consultas reales de tus clientes.</p></li>
+          <li>
+            <span class="numero">1</span>
+            <h3>Charlamos 20 minutos</h3>
+            <p>Me contás qué te piden tus clientes todos los días y dónde se te va el tiempo. Yo escucho y pregunto.</p>
+          </li>
+          <li class="destacado">
+            <span class="numero">2</span>
+            <h3>Ves la demo con tu negocio</h3>
+            <p>Te la muestro cargada con tus preguntas reales. Si te sirve, recién ahí, en esa charla 1:1, hablamos de inversión.</p>
+          </li>
+          <li>
+            <span class="numero">3</span>
+            <h3>Te paso el alcance por escrito</h3>
+            <p>Una página con qué entra, qué no entra y la fecha de entrega. Sin letra chica.</p>
+          </li>
+          <li>
+            <span class="numero">4</span>
+            <h3>Lo construyo</h3>
+            <p>Normalmente en 14 días. Si es solo para preguntas frecuentes, en 7. Si sumamos presupuestos o varios servicios, hasta 30.</p>
+          </li>
+          <li>
+            <span class="numero">5</span>
+            <h3>Te lo entrego y lo ajustamos</h3>
+            <p>Lo dejo funcionando en tu web y, después de la primera semana de uso, hacemos una ronda de ajustes con consultas reales.</p>
+          </li>
+          <li>
+            <span class="numero">6</span>
+            <h3>Seguimos si lo necesitás</h3>
+            <p>Si cambian tus horarios o servicios, lo actualizo. Y si más adelante querés sumar algo, como WhatsApp, lo vemos de a una cosa por vez.</p>
+          </li>
         </ol>
+
+        <!-- Lo que pone el cliente -->
+        <div class="pone-cliente">
+          <h3>Lo que ponés vos</h3>
+          <ul class="lista">
+            <li>Tus datos: preguntas frecuentes, servicios, horarios y políticas. Si no los tenés escritos, los armamos juntos.</li>
+            <li>Los accesos a tu web, para poder instalar el asistente.</li>
+            <li>Una reunión por semana mientras lo construyo, de 20 o 30 minutos.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -595,7 +644,7 @@
         </details>
         <details>
           <summary>¿Y si algo no anda?</summary>
-          <p>Durante la semana de ajuste lo revisamos juntos y corrijo lo que haga falta.</p>
+          <p>Después de la primera semana de uso hacemos una ronda de ajustes con consultas reales, y corrijo lo que haga falta.</p>
         </details>
       </div>
     </section>
